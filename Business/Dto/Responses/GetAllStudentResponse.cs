@@ -1,13 +1,9 @@
-﻿namespace backend_api.Entities;
+﻿namespace backend_api.Business.Dto.Responses;
 
-
-//bu clas örnek olması için oluşturuldu gerçek projede kullanılmayacak
-public class Student
+public class GetAllStudentResponse
 {
-
     public int Id { get; set; }
     public string Name { get; set; }
     public string Surname { get; set; }
     public string Email { get; set; }
-
 }

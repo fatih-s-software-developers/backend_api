@@ -9,14 +9,15 @@ public class StudentDalInMemory : IStudentDal
     public StudentDalInMemory()
     {
         _students = new List<Student>();
-        _students.Add(new Student() { Name = "Fatih", Surname = "KILINÇ", Email = "fatih@test.com" });
-        _students.Add(new Student() { Name = "Samet ", Surname = "TURAN", Email = "samet@test.com" });
-        _students.Add(new Student() { Name = "Rümeysa ", Surname = "YILMAZ", Email = "rumeysa@test.com" });
-        _students.Add(new Student() { Name = "Asiye ", Surname = "ARSLAN", Email = "asiye@test.com" });
+        _students.Add(new Student() { Id = 1,Name = "Fatih", Surname = "KILINÇ", Email = "fatih@test.com" });
+        _students.Add(new Student() { Id = 2, Name = "Samet ", Surname = "TURAN", Email = "samet@test.com" });
+        _students.Add(new Student() { Id = 3, Name = "Rümeysa ", Surname = "YILMAZ", Email = "rumeysa@test.com" });
+        _students.Add(new Student() { Id = 4, Name = "Asiye ", Surname = "ARSLAN", Email = "asiye@test.com" });
     }
 
     public void add(Student student)
     {
+
         _students.Add(student);
     }
 
