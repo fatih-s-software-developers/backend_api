@@ -1,4 +1,5 @@
 ﻿using backend_api.Business.Abstracts;
+using backend_api.Business.Dto.Requests;
 using backend_api.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -53,8 +54,8 @@ namespace backend_api.Properties
             return Ok(_studentManager.getAll());
         }
         [HttpPost("addstudent")]
-        public IActionResult AddStudent(Student student) {
-            _studentManager.add(student);
+        public IActionResult AddStudent(AddStudentRequest addStudentRequest) {
+            _studentManager.add(addStudentRequest);
             return Ok();
         }
 
