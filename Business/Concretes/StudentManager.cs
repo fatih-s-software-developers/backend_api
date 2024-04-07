@@ -17,7 +17,7 @@ public class StudentManager : IStudentManager
 
     public void add(AddStudentRequest student)
     {
-        studentDal.add(new Student() { Id = 8,Name = student.Name,Surname = student.Surname,Email = student.Email});
+        studentDal.add(new Student() {/*Id=8,*/ Name = student.Name,Surname = student.Surname,Email = student.Email});
     }
 
     public List<GetAllStudentResponse> getAll()
