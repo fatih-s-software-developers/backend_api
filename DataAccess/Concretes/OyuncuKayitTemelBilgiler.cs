@@ -34,17 +34,14 @@ public class OyuncuTemelBilgilerTablo
 
     //MacEsTablo ilişki tanımlaması
     public MacEsTablo MacEsTablo { get; set; }
-    public int MacEsTabloId { get; set; }
 
     //UcretTablo ilişki tanımlaması
     public UcretTablo UcretTablo { get; set; }
-    public int UcretTabloId { get; set; }
 
 
     //DahaOnceKatildigiLigTablo ilişki tanımlaması
     public DahaOnceKatildigiLigTablo DahaOnceKatildigiLigTablo { get; set; }
 
-    public int DahaOnceKatildigiLigTabloId { get; set; }
 
     //özel unic id tanımlaması
     public int Oyuncu_Unic_Id { get; set; }
@@ -56,6 +53,8 @@ public class MacEsTablo
 {
 
     public OyuncuTemelBilgilerTablo oyuncuTemelBilgilerTablo { get; set; }
+
+    public int oyuncuTemelBilgilerTabloId { get; set; }
     public int Id { get; set; }
     public bool CiftMacTercihi { get; set; }
 
@@ -72,6 +71,8 @@ public class UcretTablo
 {
     public OyuncuTemelBilgilerTablo oyuncuTemelBilgilerTablo { get; set; }
 
+    public int oyuncuTemelBilgilerTabloId { get; set; }
+
     public int Id { get; set; }
 
     public bool UcretOdemesiYapildiMi { get; set; }
@@ -86,6 +87,8 @@ public class DahaOnceKatildigiLigTablo
 {
     public OyuncuTemelBilgilerTablo oyuncuTemelBilgilerTablo { get; set; }
 
+    public int oyuncuTemelBilgilerTabloId { get; set; }
+
     public int Id { get; set; }
 
     public bool UlusalLiglerdeOynadiMi { get; set; }
@@ -95,11 +98,9 @@ public class DahaOnceKatildigiLigTablo
 
 
 
-
-
 //DbContext Class
 
-public class OyuncuKayitTemelBilgilerDbContext:DbContext
+public class OyuncuKayitDbContext:DbContext
 {
     public DbSet<OyuncuTemelBilgilerTablo> OyuncuTemelBilgiler { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder options)
@@ -116,23 +117,56 @@ public class OyuncuKayitTemelBilgilerDbContext:DbContext
 
 public class OyuncuKayitTemelBilgiler : IOyuncuKayitTemelBilgiler
 {
-    public void DahaOnceKatildigiLigEkle(DahaOnceKatildigiLig dahaOnceKatildigiLig)
+
+    public void temelkayitekle(OyuncuTemelBilgiler oyuncuTemelBilgiler, MacEs macEs,Ucret ucret,DahaOnceKatildigiLig dahaOnceKatildigiLig)
     {
+        //mapping işlemleri
+        //MacEs object mapping
 
-    }
+        MacEsTablo macEsTablo = new MacEsTablo()
+        {
+          CiftMacTercihi = macEs.CiftMacTercihi,
+          CiftEsAdi = macEs.CiftEsAdi,
+          KarisikMacTercihi = macEs.KarisikMacTercihi,
+          KarisikEsAdi = macEs.KarisikEsAdi,
+        };
+        // Ucret Object mapping
+        UcretTablo ucretTablo = new UcretTablo() {
+            UcretOdemesiYapildiMi = ucret.UcretOdemesiYapildiMi,
+            OdemeYapanKisininAdiSoyadi = ucret.OdemeYapanKisininAdiSoyadi,
+            OdemeYapilmasiPlanlananTarih = ucret.OdemeYapilmasiPlanlananTarih,
+        };
 
-    public void macEsEkle(MacEs macEs)
-    {
 
-    }
-
-    public void temelkayitekle(OyuncuTemelBilgiler oyuncuTemelBilgiler)
-    {
-
-    }
-
-    public void ucretEkle(Ucret ucret)
-    {
-
+        //DahaOnceKatildigiLig Object mapping
+        DahaOnceKatildigiLigTablo dahaOnceKatildigiLigTablo = new DahaOnceKatildigiLigTablo()
+        {
+            UlusalLiglerdeOynadiMi = dahaOnceKatildigiLig.UlusalLiglerdeOynadiMi,
+            LigAdi = dahaOnceKatildigiLig.LigAdi,
+        };
+        //OyuncuTemelBilgiler Object mapping
+        OyuncuTemelBilgilerTablo oyuncuTemelBilgilerTablo = new OyuncuTemelBilgilerTablo() 
+        {
+            //temel bilgiler
+            Adi = oyuncuTemelBilgiler.Adi,
+            Soyadi = oyuncuTemelBilgiler.Soyadi,
+            Ulke = oyuncuTemelBilgiler.Ulke,
+            Il = oyuncuTemelBilgiler.Il,
+            TelefonNumarasi = oyuncuTemelBilgiler.TelefonNumarasi,
+            EpostaAdresi = oyuncuTemelBilgiler.EpostaAdresi,
+            Cinsiyet = oyuncuTemelBilgiler.Cinsiyet,
+            DogumYili = oyuncuTemelBilgiler.DogumYili,
+            BedenOlcusu = oyuncuTemelBilgiler.BedenOlcusu,
+            OyunSeviye = oyuncuTemelBilgiler.OyunSeviye,
+            DahaOnceKatildiMi = oyuncuTemelBilgiler.DahaOnceKatildiMi,
+            //ilişkiler
+            MacEsTablo = macEsTablo,
+            UcretTablo = ucretTablo,
+            DahaOnceKatildigiLigTablo = dahaOnceKatildigiLigTablo
+        };
+        //veritabanı kayıt işlemleri
+        OyuncuKayitDbContext oyuncuKayitDbContext = new OyuncuKayitDbContext();
+        oyuncuKayitDbContext.OyuncuTemelBilgiler.Add(oyuncuTemelBilgilerTablo);
+        oyuncuKayitDbContext.SaveChanges();
     }
 }
