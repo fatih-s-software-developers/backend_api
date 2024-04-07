@@ -2,6 +2,7 @@ using backend_api.Business.Abstracts;
 using backend_api.Business.Concretes;
 using backend_api.DataAccess.Abstracts;
 using backend_api.DataAccess.Concretes;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,8 +12,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddSingleton<IStudentManager,StudentManager>();
-builder.Services.AddSingleton<IStudentDal, StudentDalInMemory>();
+builder.Services.AddSingleton<IStudentManager, StudentManager>();
+builder.Services.AddSingleton<IStudentDal, StudentDalInDb>();
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
