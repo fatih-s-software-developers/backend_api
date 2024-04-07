@@ -1,6 +1,8 @@
 ﻿using backend_api.Business.Abstracts;
 using backend_api.Business.Dto.Requests;
+using backend_api.DataAccess.Concretes;
 using backend_api.Entities;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -58,6 +60,50 @@ namespace backend_api.Properties
             _studentManager.add(addStudentRequest);
             return Ok();
         }
+        [HttpGet("KayitTest")]
+        public IActionResult Ekle() {
+            //Console.WriteLine("objeler oluşturuluyor");
+            //MacEs macEs = new MacEs()
+            //{
+            //    CiftMacTercihi = true,
+            //    CiftEsAdi = "Samet",
+            //    KarisikMacTercihi = true,
+            //    KarisikEsAdi = "Asiye",
+            //};
+            //Ucret ucret = new Ucret()
+            //{
+            //    OdemeYapanKisininAdiSoyadi = "Fatih KILINÇ",
+            //    UcretOdemesiYapildiMi = true,
+            //    OdemeYapilmasiPlanlananTarih = DateTime.Now.ToUniversalTime(),
+            //};
+            //DahaOnceKatildigiLig dahaOnceKatildigiLig = new DahaOnceKatildigiLig()
+            //{
+            //    UlusalLiglerdeOynadiMi = true,
+            //    LigAdi = "Süper Lig",
+            //};
+            //OyuncuTemelBilgiler oyuncuTemelBilgiler = new OyuncuTemelBilgiler
+            //{
+            //    Adi = "Fatih",
+            //    Soyadi = "KILINÇ",
+            //    Ulke = "Türkiye",
+            //    Il = "Adana",
+            //    TelefonNumarasi = "05054657858",
+            //    EpostaAdresi = "fatihemre.1111@gmail.com",
+            //    Cinsiyet = "Erkek",
+            //    DogumYili = 2003,
+            //    BedenOlcusu = "L",
+            //    OyunSeviye = 5,
+            //    DahaOnceKatildiMi = false,
+            //};
+            //Console.WriteLine("objeler oluşturuldu");
+            //Console.WriteLine("kayıt işlemi başlatılıyor");
+            //OyuncuKayitTemelBilgiler oyuncuKayitTemelBilgiler = new OyuncuKayitTemelBilgiler();
+            //oyuncuKayitTemelBilgiler.temelkayitekle(oyuncuTemelBilgiler,macEs,ucret,dahaOnceKatildigiLig);
+            //Console.WriteLine("Kayıt işlemi  bitirildi");
+            return Ok();
+        
+        }
+
 
 
     }
