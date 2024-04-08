@@ -12,8 +12,13 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+//student
 builder.Services.AddSingleton<IStudentManager, StudentManager>();
 builder.Services.AddSingleton<IStudentDal, StudentDalInDb>();
+//temel kayýt ekle
+builder.Services.AddSingleton<IOyuncuKayitTemelBilgilerManager,OyuncuKayitTemelBilgilerManager>();
+builder.Services.AddSingleton<IOyuncuKayitTemelBilgiler,OyuncuKayitTemelBilgiler>();
 
 
 var app = builder.Build();

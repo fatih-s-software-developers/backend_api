@@ -114,7 +114,6 @@ public class OyuncuKayitDbContext:DbContext
 }
 
 
-
 public class OyuncuKayitTemelBilgiler : IOyuncuKayitTemelBilgiler
 {
 
@@ -122,7 +121,7 @@ public class OyuncuKayitTemelBilgiler : IOyuncuKayitTemelBilgiler
     {
         //mapping işlemleri
         //MacEs object mapping
-
+        Console.WriteLine("mapping işlemi başladı");
         MacEsTablo macEsTablo = new MacEsTablo()
         {
           CiftMacTercihi = macEs.CiftMacTercihi,
@@ -136,7 +135,6 @@ public class OyuncuKayitTemelBilgiler : IOyuncuKayitTemelBilgiler
             OdemeYapanKisininAdiSoyadi = ucret.OdemeYapanKisininAdiSoyadi,
             OdemeYapilmasiPlanlananTarih = ucret.OdemeYapilmasiPlanlananTarih,
         };
-
 
         //DahaOnceKatildigiLig Object mapping
         DahaOnceKatildigiLigTablo dahaOnceKatildigiLigTablo = new DahaOnceKatildigiLigTablo()
@@ -164,9 +162,12 @@ public class OyuncuKayitTemelBilgiler : IOyuncuKayitTemelBilgiler
             UcretTablo = ucretTablo,
             DahaOnceKatildigiLigTablo = dahaOnceKatildigiLigTablo
         };
+        Console.WriteLine("mapping işlemi bitti");
         //veritabanı kayıt işlemleri
+        Console.WriteLine("veritabanı kayıt işlemi başladı");
         OyuncuKayitDbContext oyuncuKayitDbContext = new OyuncuKayitDbContext();
         oyuncuKayitDbContext.OyuncuTemelBilgiler.Add(oyuncuTemelBilgilerTablo);
         oyuncuKayitDbContext.SaveChanges();
+        Console.WriteLine("veritabanı kayıt işlemi bitti");
     }
 }

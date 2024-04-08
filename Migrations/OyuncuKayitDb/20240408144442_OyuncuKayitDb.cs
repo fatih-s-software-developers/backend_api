@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace backend_api.Migrations.OyuncuKayitDb
 {
     /// <inheritdoc />
-    public partial class OyuncuKayitTemelBilgiler : Migration
+    public partial class OyuncuKayitDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

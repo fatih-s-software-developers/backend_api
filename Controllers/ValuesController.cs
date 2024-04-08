@@ -15,7 +15,7 @@ namespace backend_api.Properties
 
         private readonly IStudentManager _studentManager;
 
-        public ValuesController(IStudentManager studentManager)
+        public ValuesController(IStudentManager studentManager, IOyuncuKayitTemelBilgilerManager oyuncuKayitTemelBilgilerManager)
         {
             _studentManager = studentManager;
         }
@@ -60,51 +60,56 @@ namespace backend_api.Properties
             _studentManager.add(addStudentRequest);
             return Ok();
         }
-        [HttpGet("KayitTest")]
-        public IActionResult Ekle() {
-            //Console.WriteLine("objeler oluşturuluyor");
-            //MacEs macEs = new MacEs()
-            //{
-            //    CiftMacTercihi = true,
-            //    CiftEsAdi = "Samet",
-            //    KarisikMacTercihi = true,
-            //    KarisikEsAdi = "Asiye",
-            //};
-            //Ucret ucret = new Ucret()
-            //{
-            //    OdemeYapanKisininAdiSoyadi = "Fatih KILINÇ",
-            //    UcretOdemesiYapildiMi = true,
-            //    OdemeYapilmasiPlanlananTarih = DateTime.Now.ToUniversalTime(),
-            //};
-            //DahaOnceKatildigiLig dahaOnceKatildigiLig = new DahaOnceKatildigiLig()
-            //{
-            //    UlusalLiglerdeOynadiMi = true,
-            //    LigAdi = "Süper Lig",
-            //};
-            //OyuncuTemelBilgiler oyuncuTemelBilgiler = new OyuncuTemelBilgiler
-            //{
-            //    Adi = "Fatih",
-            //    Soyadi = "KILINÇ",
-            //    Ulke = "Türkiye",
-            //    Il = "Adana",
-            //    TelefonNumarasi = "05054657858",
-            //    EpostaAdresi = "fatihemre.1111@gmail.com",
-            //    Cinsiyet = "Erkek",
-            //    DogumYili = 2003,
-            //    BedenOlcusu = "L",
-            //    OyunSeviye = 5,
-            //    DahaOnceKatildiMi = false,
-            //};
-            //Console.WriteLine("objeler oluşturuldu");
-            //Console.WriteLine("kayıt işlemi başlatılıyor");
-            //OyuncuKayitTemelBilgiler oyuncuKayitTemelBilgiler = new OyuncuKayitTemelBilgiler();
-            //oyuncuKayitTemelBilgiler.temelkayitekle(oyuncuTemelBilgiler,macEs,ucret,dahaOnceKatildigiLig);
-            //Console.WriteLine("Kayıt işlemi  bitirildi");
+        [HttpPost("KayitTest")]
+        public IActionResult Ekle(TemelKayitEkleRequest temelKayitEkleRequest) {
+            /*
+            Console.WriteLine("objeler oluşturuluyor");
+            MacEs macEs = new MacEs()
+            {
+                CiftMacTercihi = true,
+                CiftEsAdi = "Samet",
+                KarisikMacTercihi = true,
+                KarisikEsAdi = "Asiye",
+            };
+            Ucret ucret = new Ucret()
+            {
+                OdemeYapanKisininAdiSoyadi = "Fatih KILINÇ",
+                UcretOdemesiYapildiMi = true,
+                OdemeYapilmasiPlanlananTarih = DateTime.Now.ToUniversalTime(),
+            };
+            DahaOnceKatildigiLig dahaOnceKatildigiLig = new DahaOnceKatildigiLig()
+            {
+                UlusalLiglerdeOynadiMi = true,
+                LigAdi = "Süper Lig",
+            };
+            OyuncuTemelBilgiler oyuncuTemelBilgiler = new OyuncuTemelBilgiler
+            {
+                Adi = "Fatih",
+                Soyadi = "KILINÇ",
+                Ulke = "Türkiye",
+                Il = "Adana",
+                TelefonNumarasi = "05054657858",
+                EpostaAdresi = "fatihemre.1111@gmail.com",
+                Cinsiyet = "Erkek",
+                DogumYili = 2003,
+                BedenOlcusu = "L",
+                OyunSeviye = 5,
+                DahaOnceKatildiMi = false,
+            };
+            Console.WriteLine("objeler oluşturuldu");
+            Console.WriteLine("kayıt işlemi başlatılıyor");
+            OyuncuKayitTemelBilgiler oyuncuKayitTemelBilgiler = new OyuncuKayitTemelBilgiler();
+            oyuncuKayitTemelBilgiler.temelkayitekle(oyuncuTemelBilgiler,macEs,ucret,dahaOnceKatildigiLig);
+            Console.WriteLine("Kayıt işlemi  bitirildi");
+            */
+            //_oyuncuKayitTemelBilgilerManager.temelkayitekle(temelKayitEkleRequest);
             return Ok();
-        
         }
 
 
 
     }
+
+
+
 }

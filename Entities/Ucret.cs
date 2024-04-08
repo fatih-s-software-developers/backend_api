@@ -2,7 +2,7 @@
 
 public class Ucret
 {
-    public int Id { get; set; }
+    //public int Id { get; set; }
 
     public bool UcretOdemesiYapildiMi { get; set; }
 

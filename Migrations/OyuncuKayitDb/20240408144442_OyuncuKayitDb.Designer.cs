@@ -12,8 +12,8 @@ using backend_api.DataAccess.Concretes;
 namespace backend_api.Migrations.OyuncuKayitDb
 {
     [DbContext(typeof(OyuncuKayitDbContext))]
-    [Migration("20240407194225_OyuncuKayitTemelBilgiler")]
-    partial class OyuncuKayitTemelBilgiler
+    [Migration("20240408144442_OyuncuKayitDb")]
+    partial class OyuncuKayitDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
