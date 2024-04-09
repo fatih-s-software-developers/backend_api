@@ -2,7 +2,7 @@
 
 public class MacEs
 {
-    //public int Id { get; set; }
+    public int Id { get; set; }
     public bool CiftMacTercihi { get; set; }
 
     public string CiftEsAdi { get; set; }

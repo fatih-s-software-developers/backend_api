@@ -4,12 +4,69 @@ namespace backend_api.Business.Dto.Requests;
 
 public class TemelKayitEkleRequest
 {
-    public OyuncuTemelBilgiler OyuncuTemelBilgiler { get; set; }
+    public OyuncuTemelBilgilerTemelKayitEkleRequest OyuncuTemelBilgiler { get; set; }
 
-    public MacEs MacEs { get; set; }
+    public MacEsTemelKayitEkleRequest MacEs { get; set; }
+    public UcretTemelKayitEkleRequest Ucret { get; set; }
 
-    public Ucret Ucret { get; set; }
+    public DahaOnceKatildigiLigUcretTemelKayitEkleRequest DahaOnceKatildigiLig { get; set; }
 
-    public DahaOnceKatildigiLig DahaOnceKatildigiLig { get; set; }
+}
 
+
+public class OyuncuTemelBilgilerTemelKayitEkleRequest
+{
+    public string Adi { get; set; }
+
+    public string Soyadi { get; set; }
+
+    public string Ulke { get; set; }
+
+    public string Il { get; set; }
+
+
+    public string TelefonNumarasi { get; set; }
+
+    public string EpostaAdresi { get; set; }
+
+    public string Cinsiyet { get; set; }
+
+    public int DogumYili { get; set; }
+
+
+    public string BedenOlcusu { get; set; }
+
+    public int OyunSeviye { get; set; }
+
+
+    public bool DahaOnceKatildiMi { get; set; }
+}
+
+public class MacEsTemelKayitEkleRequest {
+
+    public bool CiftMacTercihi { get; set; }
+
+    public string CiftEsAdi { get; set; }
+
+    public bool KarisikMacTercihi { get; set; }
+
+    public string KarisikEsAdi { get; set; }
+
+}
+
+public class UcretTemelKayitEkleRequest
+{
+    public bool UcretOdemesiYapildiMi { get; set; }
+
+    public string OdemeYapanKisininAdiSoyadi { get; set; }
+
+
+    public DateTime OdemeYapilmasiPlanlananTarih { get; set; }
+}
+
+public class DahaOnceKatildigiLigUcretTemelKayitEkleRequest
+{
+    public bool UlusalLiglerdeOynadiMi { get; set; }
+
+    public string LigAdi { get; set; }
 }

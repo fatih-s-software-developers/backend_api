@@ -1,4 +1,5 @@
-﻿using backend_api.DataAccess.Abstracts;
+﻿using backend_api.Business.Dto.Requests;
+using backend_api.DataAccess.Abstracts;
 using backend_api.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -117,7 +118,7 @@ public class OyuncuKayitDbContext:DbContext
 public class OyuncuKayitTemelBilgiler : IOyuncuKayitTemelBilgiler
 {
 
-    public void temelkayitekle(OyuncuTemelBilgiler oyuncuTemelBilgiler, MacEs macEs,Ucret ucret,DahaOnceKatildigiLig dahaOnceKatildigiLig)
+    public void temelkayitekle(OyuncuTemelBilgilerTemelKayitEkleRequest oyuncuTemelBilgiler, MacEsTemelKayitEkleRequest macEs, UcretTemelKayitEkleRequest ucret, DahaOnceKatildigiLigUcretTemelKayitEkleRequest dahaOnceKatildigiLig)
     {
         //mapping işlemleri
         //MacEs object mapping
@@ -165,6 +166,7 @@ public class OyuncuKayitTemelBilgiler : IOyuncuKayitTemelBilgiler
         Console.WriteLine("mapping işlemi bitti");
         //veritabanı kayıt işlemleri
         Console.WriteLine("veritabanı kayıt işlemi başladı");
+        Console.WriteLine("sorun bulunamadı");
         OyuncuKayitDbContext oyuncuKayitDbContext = new OyuncuKayitDbContext();
         oyuncuKayitDbContext.OyuncuTemelBilgiler.Add(oyuncuTemelBilgilerTablo);
         oyuncuKayitDbContext.SaveChanges();

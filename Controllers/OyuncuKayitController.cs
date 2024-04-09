@@ -21,7 +21,6 @@ namespace backend_api.Controllers
 
             _oyuncuKayitTemelBilgilerManager.temelkayitekle(temelKayitEkleRequest);
             return Ok();
-
         }
 
     }
