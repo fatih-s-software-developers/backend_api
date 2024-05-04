@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace backend_api.Migrations.OyuncuKayitDb
 {
     /// <inheritdoc />
-    public partial class OyuncuKayitDb : Migration
+    public partial class ProductTable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -89,7 +89,7 @@ namespace backend_api.Migrations.OyuncuKayitDb
                     oyuncuTemelBilgilerTabloId = table.Column<int>(type: "integer", nullable: false),
                     UcretOdemesiYapildiMi = table.Column<bool>(type: "boolean", nullable: false),
                     OdemeYapanKisininAdiSoyadi = table.Column<string>(type: "text", nullable: false),
-                    OdemeYapilmasiPlanlananTarih = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    OdemeYapilmasiPlanlananTarih = table.Column<DateTime>(type: "Date", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -151,7 +151,7 @@ namespace backend_api.Migrations.OyuncuKayitDb
                         .HasColumnType("text");
 
                     b.Property<DateTime>("OdemeYapilmasiPlanlananTarih")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("Date");
 
                     b.Property<bool>("UcretOdemesiYapildiMi")
                         .HasColumnType("boolean");

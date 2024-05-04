@@ -12,8 +12,8 @@ using backend_api.DataAccess.Concretes;
 namespace backend_api.Migrations.OyuncuKayitDb
 {
     [DbContext(typeof(OyuncuKayitDbContext))]
-    [Migration("20240408144442_OyuncuKayitDb")]
-    partial class OyuncuKayitDb
+    [Migration("20240414194642_ProductTable")]
+    partial class ProductTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -154,7 +154,7 @@ namespace backend_api.Migrations.OyuncuKayitDb
                         .HasColumnType("text");
 
                     b.Property<DateTime>("OdemeYapilmasiPlanlananTarih")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("Date");
 
                     b.Property<bool>("UcretOdemesiYapildiMi")
                         .HasColumnType("boolean");

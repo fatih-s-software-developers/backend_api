@@ -56,12 +56,14 @@ namespace backend_api.Properties
             return Ok(_studentManager.getAll());
         }
         [HttpPost("addstudent")]
-        public IActionResult AddStudent(AddStudentRequest addStudentRequest) {
+        public IActionResult AddStudent(AddStudentRequest addStudentRequest)
+        {
             _studentManager.add(addStudentRequest);
             return Ok();
         }
         [HttpPost("KayitTest")]
-        public IActionResult Ekle(TemelKayitEkleRequest temelKayitEkleRequest) {
+        public IActionResult Ekle(TemelKayitEkleRequest temelKayitEkleRequest)
+        {
             /*
             Console.WriteLine("objeler oluşturuluyor");
             MacEs macEs = new MacEs()
@@ -107,6 +109,64 @@ namespace backend_api.Properties
         }
 
 
+        private List<YasKategori> yasKategorileri = new List<YasKategori>()
+        {
+            //Tek Erkekler
+            new YasKategori(){YasBaslangic =20,YasBitis = 29,Cinsiyet = "ERKEK" ,CiftTercih = false,KarisikTercih = false },//geçiçi (sonra sil)
+
+            new YasKategori(){YasBaslangic =30,YasBitis = 39,Cinsiyet = "ERKEK" ,CiftTercih = false,KarisikTercih = false },
+            new YasKategori(){YasBaslangic = 40,YasBitis = 49,Cinsiyet = "ERKEK" ,CiftTercih = false,KarisikTercih = false},
+            new YasKategori(){YasBaslangic = 50,YasBitis = 59,Cinsiyet = "ERKEK",CiftTercih = false ,KarisikTercih = false },
+            new YasKategori(){YasBaslangic = 60,YasBitis = 64,Cinsiyet = "ERKEK",CiftTercih = false,KarisikTercih = false},
+            new YasKategori(){YasBaslangic = 65,YasBitis = 69,Cinsiyet = "ERKEK",CiftTercih = false,KarisikTercih = false},
+            new YasKategori(){YasBaslangic = 70,YasBitis = 74,Cinsiyet = "ERKEK",CiftTercih = false ,KarisikTercih = false},
+            new YasKategori(){YasBaslangic = 75,YasBitis = 999,Cinsiyet = "ERKEK" ,CiftTercih = false,KarisikTercih = false },
+            //Tek Kadınlar
+            new YasKategori(){YasBaslangic = 30,YasBitis = 39,Cinsiyet = "KADIN",CiftTercih = false,KarisikTercih = false},
+            new YasKategori(){YasBaslangic = 40,YasBitis = 49 ,Cinsiyet = "KADIN",CiftTercih = false,KarisikTercih = false},
+            new YasKategori(){YasBaslangic = 50,YasBitis = 59,Cinsiyet = "KADIN",CiftTercih = false,KarisikTercih =false },
+            new YasKategori(){YasBaslangic = 60,YasBitis = 999 ,Cinsiyet = "KADIN",CiftTercih = false,KarisikTercih =false },
+            //Çift Erkek
+            new YasKategori(){YasBaslangic = 30,YasBitis = 39,Cinsiyet = "ERKEK",CiftTercih = true,KarisikTercih = false},
+            new YasKategori(){YasBaslangic = 40,YasBitis = 49,Cinsiyet = "ERKEK",CiftTercih = true ,KarisikTercih = false},
+            new YasKategori(){YasBaslangic = 50,YasBitis = 59,Cinsiyet = "ERKEK",CiftTercih = true,KarisikTercih = false},
+            new YasKategori(){YasBaslangic = 60,YasBitis = 64,Cinsiyet = "ERKEK",CiftTercih = true,KarisikTercih =false },
+            new YasKategori(){YasBaslangic = 65,YasBitis = 69,Cinsiyet = "ERKEK",CiftTercih = true,KarisikTercih =false},
+            new YasKategori(){YasBaslangic = 70,YasBitis = 999,Cinsiyet = "ERKEK",CiftTercih = true,KarisikTercih =false },
+            //Çift Kadın
+            new YasKategori(){YasBaslangic = 30,YasBitis = 49,Cinsiyet = "KADIN",CiftTercih = true,KarisikTercih = false},
+            new YasKategori(){YasBaslangic = 50,YasBitis = 59,Cinsiyet = "KADIN",CiftTercih = true,KarisikTercih = false},
+            new YasKategori(){YasBaslangic = 60,YasBitis = 999,Cinsiyet = "KADIN",CiftTercih = true,KarisikTercih = false},
+
+            //Karışık
+            new YasKategori(){YasBaslangic = 30 ,YasBitis = 49,Cinsiyet = "ERKEK",CiftTercih = false,KarisikTercih = true},
+            new YasKategori(){YasBaslangic = 30,YasBitis = 49,Cinsiyet = "KADIN",CiftTercih = false,KarisikTercih = true },
+            new YasKategori(){YasBaslangic = 50,YasBitis = 999,Cinsiyet = "ERKEK",CiftTercih = false,KarisikTercih =true },
+            new YasKategori(){YasBaslangic = 50,YasBitis = 999,Cinsiyet = "KADIN",CiftTercih = false,KarisikTercih =true },
+        };
+
+
+        [HttpPost("yasHesapTest")]
+        public IActionResult TestEt(/*int YasBaslangic, int YasBitis,*/int dogumYili ,string Cinsiyet, bool CiftTercih, bool KarisikTercih)
+        {
+            int oyuncuYas = yasHesapla(dogumYili);
+            Console.WriteLine("oyuncu yaşı " + oyuncuYas);
+            //linq sorgusuna çevirilebilir
+            foreach (YasKategori kategori in yasKategorileri)
+            {
+                if ((kategori.YasBaslangic <= oyuncuYas) && (oyuncuYas <= kategori.YasBitis) &&  (kategori.Cinsiyet == Cinsiyet) && (kategori.CiftTercih == CiftTercih) && (kategori.KarisikTercih == KarisikTercih ))
+                {
+                    Console.WriteLine(kategori.YasKategoriOlustur());
+                    return Ok();
+                }
+            }
+            return Ok();
+        }
+        private int yasHesapla(int dogumYili)
+        {
+            int guncelYil = DateTime.Now.Year;
+            return guncelYil - dogumYili;
+        }
 
     }
 
