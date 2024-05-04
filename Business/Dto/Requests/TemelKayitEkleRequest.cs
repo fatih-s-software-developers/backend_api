@@ -33,13 +33,15 @@ public class OyuncuTemelBilgilerTemelKayitEkleRequest
 
     public int DogumYili { get; set; }
 
-
+    public string? YasKategoriId { get; set; }
     public string BedenOlcusu { get; set; }
 
     public int OyunSeviye { get; set; }
 
 
     public bool DahaOnceKatildiMi { get; set; }
+
+
 }
 
 public class MacEsTemelKayitEkleRequest {

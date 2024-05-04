@@ -13,7 +13,7 @@ public class YasKategori
     public bool KarisikTercih { get; set; } 
 
 
-    public string YasKategoriOlustur()
+    public string YasKategoriIdOlustur()
     {
 
         //yasBaslangicHanesi
@@ -100,7 +100,7 @@ public class YasKategori
         //    yasBitisHanesi = $"0{YasBitis}";
         //}
         ////yaş 3 karekterli ise başına birşey konmaz
-        return $"{yasBaslangicHanesi} {tercihHanesi} {cinsiyetHanesi} {yasBitisHanesi}";
+        return $"{yasBaslangicHanesi}{tercihHanesi}{cinsiyetHanesi}{yasBitisHanesi}";
     }
 
     private string yasHaneOlustur(int yas){

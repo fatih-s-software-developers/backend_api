@@ -2,21 +2,18 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using backend_api.DataAccess.Concretes;
 
 #nullable disable
 
-namespace backend_api.Migrations.OyuncuKayitDb
+namespace backend_api.Migrations
 {
     [DbContext(typeof(OyuncuKayitDbContext))]
-    [Migration("20240414194642_ProductTable")]
-    partial class ProductTable
+    partial class OyuncuKayitDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -133,6 +130,10 @@ namespace backend_api.Migrations.OyuncuKayitDb
                         .HasColumnType("text");
 
                     b.Property<string>("Ulke")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("YasKategoriId")
                         .IsRequired()
                         .HasColumnType("text");
 
