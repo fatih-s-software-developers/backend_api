@@ -166,6 +166,7 @@ public class OyuncuKayitTemelBilgiler : IOyuncuKayitTemelBilgiler
             EpostaAdresi = oyuncuTemelBilgiler.EpostaAdresi,
             Cinsiyet = oyuncuTemelBilgiler.Cinsiyet,
             DogumYili = oyuncuTemelBilgiler.DogumYili,
+            YasKategoriId = oyuncuTemelBilgiler.YasKategoriId,
             BedenOlcusu = oyuncuTemelBilgiler.BedenOlcusu,
             OyunSeviye = oyuncuTemelBilgiler.OyunSeviye,
             DahaOnceKatildiMi = oyuncuTemelBilgiler.DahaOnceKatildiMi,
@@ -176,7 +177,6 @@ public class OyuncuKayitTemelBilgiler : IOyuncuKayitTemelBilgiler
         };
         Console.WriteLine("mapping işlemi bitti");
         //veritabanı kayıt işlemleri
-        Console.WriteLine("yaş kategori belirleme işlemi başladı");
         Console.WriteLine("veritabanı kayıt işlemi başladı");
         Console.WriteLine("sorun bulunamadı");
         OyuncuKayitDbContext oyuncuKayitDbContext = new OyuncuKayitDbContext();
@@ -184,61 +184,5 @@ public class OyuncuKayitTemelBilgiler : IOyuncuKayitTemelBilgiler
         oyuncuKayitDbContext.SaveChanges();
         Console.WriteLine("veritabanı kayıt işlemi bitti");
     }
-
-    private List<YasKategori> yasKategorileri = new List<YasKategori>()
-    {
-        //Tek Erkekler
-        new YasKategori(){YasBaslangic =30,YasBitis = 39,Cinsiyet = "ERKEK" ,CiftTercih = false,KarisikTercih = false },
-        new YasKategori(){YasBaslangic = 40,YasBitis = 49,Cinsiyet = "ERKEK" ,CiftTercih = false,KarisikTercih = false},
-        new YasKategori(){YasBaslangic = 50,YasBitis = 59,Cinsiyet = "ERKEK",CiftTercih = false ,KarisikTercih = false },
-        new YasKategori(){YasBaslangic = 60,YasBitis = 64,Cinsiyet = "ERKEK",CiftTercih = false,KarisikTercih = false},
-        new YasKategori(){YasBaslangic = 65,YasBitis = 69,Cinsiyet = "ERKEK",CiftTercih = false,KarisikTercih = false},
-        new YasKategori(){YasBaslangic = 70,YasBitis = 74,Cinsiyet = "ERKEK",CiftTercih = false ,KarisikTercih = false},
-        new YasKategori(){YasBaslangic = 75,YasBitis = 999,Cinsiyet = "ERKEK" ,CiftTercih = false,KarisikTercih = false },
-        //Tek Kadınlar
-        new YasKategori(){YasBaslangic = 30,YasBitis = 39,Cinsiyet = "KADIN",CiftTercih = false,KarisikTercih = false},
-        new YasKategori(){YasBaslangic = 40,YasBitis = 49 ,Cinsiyet = "KADIN",CiftTercih = false,KarisikTercih = false},
-        new YasKategori(){YasBaslangic = 50,YasBitis = 59,Cinsiyet = "KADIN",CiftTercih = false,KarisikTercih =false },
-        new YasKategori(){YasBaslangic = 60,YasBitis = 999 ,Cinsiyet = "KADIN",CiftTercih = false,KarisikTercih =false },
-        //Çift Erkek
-        new YasKategori(){YasBaslangic = 30,YasBitis = 39,Cinsiyet = "ERKEK",CiftTercih = true,KarisikTercih = false},
-        new YasKategori(){YasBaslangic = 40,YasBitis = 49,Cinsiyet = "ERKEK",CiftTercih = true ,KarisikTercih = false},
-        new YasKategori(){YasBaslangic = 50,YasBitis = 59,Cinsiyet = "ERKEK",CiftTercih = true,KarisikTercih = false},
-        new YasKategori(){YasBaslangic = 60,YasBitis = 64,Cinsiyet = "ERKEK",CiftTercih = true,KarisikTercih =false },
-        new YasKategori(){YasBaslangic = 65,YasBitis = 69,Cinsiyet = "ERKEK",CiftTercih = true,KarisikTercih =false},
-        new YasKategori(){YasBaslangic = 70,YasBitis = 999,Cinsiyet = "ERKEK",CiftTercih = true,KarisikTercih =false },
-        //Çift Kadın
-        new YasKategori(){YasBaslangic = 30,YasBitis = 49,Cinsiyet = "KADIN",CiftTercih = true,KarisikTercih = false},
-        new YasKategori(){YasBaslangic = 50,YasBitis = 59,Cinsiyet = "KADIN",CiftTercih = true,KarisikTercih = false},
-        new YasKategori(){YasBaslangic = 60,YasBitis = 999,Cinsiyet = "KADIN",CiftTercih = true,KarisikTercih = false},
-
-        //Karışık
-        new YasKategori(){YasBaslangic = 30 ,YasBitis = 49,Cinsiyet = "ERKEK",CiftTercih = false,KarisikTercih = true},
-        new YasKategori(){YasBaslangic = 30,YasBitis = 49,Cinsiyet = "KADIN",CiftTercih = false,KarisikTercih = true },
-        new YasKategori(){YasBaslangic = 50,YasBitis = 999,Cinsiyet = "ERKEK",CiftTercih = false,KarisikTercih =true },
-        new YasKategori(){YasBaslangic = 50,YasBitis = 999,Cinsiyet = "KADIN",CiftTercih = false,KarisikTercih =true },
-    };
-
-    private YasKategori yasKategoriIdKodla(OyuncuTemelBilgilerTablo oyuncuTemelBilgilerTablo)
-    {
-        int oyuncuYas = yasHesapla(oyuncuTemelBilgilerTablo.DogumYili);
-        //linq sorgusuna çevirilebilir
-        foreach (YasKategori kategori in yasKategorileri)
-        {
-            if ((kategori.YasBaslangic <= oyuncuYas) && (oyuncuYas <= kategori.YasBitis ) && (kategori.Cinsiyet == oyuncuTemelBilgilerTablo.Cinsiyet) && (kategori.CiftTercih == oyuncuTemelBilgilerTablo.MacEsTablo.CiftMacTercihi) && (kategori.KarisikTercih == oyuncuTemelBilgilerTablo.MacEsTablo.KarisikMacTercihi) )
-            {
-                return kategori ;
-            }
-        }
-        return null;
-    }
-
-    private int yasHesapla(int dogumYili)
-    {
-        int guncelYil = DateTime.Now.Year;
-        return guncelYil - dogumYili;
-    }
-
-
 }
 

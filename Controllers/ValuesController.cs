@@ -156,7 +156,7 @@ namespace backend_api.Properties
             {
                 if ((kategori.YasBaslangic <= oyuncuYas) && (oyuncuYas <= kategori.YasBitis) &&  (kategori.Cinsiyet == Cinsiyet) && (kategori.CiftTercih == CiftTercih) && (kategori.KarisikTercih == KarisikTercih ))
                 {
-                    Console.WriteLine(kategori.YasKategoriOlustur());
+                    Console.WriteLine(kategori.YasKategoriIdOlustur());
                     return Ok();
                 }
             }

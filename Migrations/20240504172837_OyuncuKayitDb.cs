@@ -4,10 +4,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace backend_api.Migrations.OyuncuKayitDb
+namespace backend_api.Migrations
 {
     /// <inheritdoc />
-    public partial class ProductTable : Migration
+    public partial class OyuncuKayitDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -26,6 +26,7 @@ namespace backend_api.Migrations.OyuncuKayitDb
                     EpostaAdresi = table.Column<string>(type: "text", nullable: false),
                     Cinsiyet = table.Column<string>(type: "text", nullable: false),
                     DogumYili = table.Column<int>(type: "integer", nullable: false),
+                    YasKategoriId = table.Column<string>(type: "text", nullable: false),
                     BedenOlcusu = table.Column<string>(type: "text", nullable: false),
                     OyunSeviye = table.Column<int>(type: "integer", nullable: false),
                     DahaOnceKatildiMi = table.Column<bool>(type: "boolean", nullable: false),
