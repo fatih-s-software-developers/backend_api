@@ -1,6 +1,8 @@
-﻿using backend_api.DataAccess.Abstracts;
+﻿using backend_api.Business.Dto.Requests;
+using backend_api.DataAccess.Abstracts;
 using backend_api.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace backend_api.DataAccess.Concretes;
 
@@ -25,6 +27,14 @@ public class OyuncuTemelBilgilerTablo
     public string Cinsiyet { get; set; }
 
     public int DogumYili { get; set; }
+
+
+
+
+    //yaşına göre kategoriye yerleştirme
+    public string YasKategoriId { get; set; }
+
+
     public string BedenOlcusu { get; set; }
 
     public int OyunSeviye { get; set; }
@@ -78,8 +88,9 @@ public class UcretTablo
     public bool UcretOdemesiYapildiMi { get; set; }
 
     public string OdemeYapanKisininAdiSoyadi { get; set; }
-    public DateTime OdemeYapilmasiPlanlananTarih { get; set; }
 
+    [Column(TypeName = "Date")]
+    public DateTime OdemeYapilmasiPlanlananTarih { get; set; }
 
 }
 //Database Model Class
@@ -100,7 +111,7 @@ public class DahaOnceKatildigiLigTablo
 
 //DbContext Class
 
-public class OyuncuKayitDbContext:DbContext
+public class OyuncuKayitDbContext : DbContext
 {
     public DbSet<OyuncuTemelBilgilerTablo> OyuncuTemelBilgiler { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder options)
@@ -114,29 +125,28 @@ public class OyuncuKayitDbContext:DbContext
 }
 
 
-
 public class OyuncuKayitTemelBilgiler : IOyuncuKayitTemelBilgiler
 {
 
-    public void temelkayitekle(OyuncuTemelBilgiler oyuncuTemelBilgiler, MacEs macEs,Ucret ucret,DahaOnceKatildigiLig dahaOnceKatildigiLig)
+    public void temelkayitekle(OyuncuTemelBilgilerTemelKayitEkleRequest oyuncuTemelBilgiler, MacEsTemelKayitEkleRequest macEs, UcretTemelKayitEkleRequest ucret, DahaOnceKatildigiLigUcretTemelKayitEkleRequest dahaOnceKatildigiLig)
     {
         //mapping işlemleri
         //MacEs object mapping
-
+        Console.WriteLine("mapping işlemi başladı");
         MacEsTablo macEsTablo = new MacEsTablo()
         {
-          CiftMacTercihi = macEs.CiftMacTercihi,
-          CiftEsAdi = macEs.CiftEsAdi,
-          KarisikMacTercihi = macEs.KarisikMacTercihi,
-          KarisikEsAdi = macEs.KarisikEsAdi,
+            CiftMacTercihi = macEs.CiftMacTercihi,
+            CiftEsAdi = macEs.CiftEsAdi,
+            KarisikMacTercihi = macEs.KarisikMacTercihi,
+            KarisikEsAdi = macEs.KarisikEsAdi,
         };
         // Ucret Object mapping
-        UcretTablo ucretTablo = new UcretTablo() {
+        UcretTablo ucretTablo = new UcretTablo()
+        {
             UcretOdemesiYapildiMi = ucret.UcretOdemesiYapildiMi,
             OdemeYapanKisininAdiSoyadi = ucret.OdemeYapanKisininAdiSoyadi,
             OdemeYapilmasiPlanlananTarih = ucret.OdemeYapilmasiPlanlananTarih,
         };
-
 
         //DahaOnceKatildigiLig Object mapping
         DahaOnceKatildigiLigTablo dahaOnceKatildigiLigTablo = new DahaOnceKatildigiLigTablo()
@@ -145,7 +155,7 @@ public class OyuncuKayitTemelBilgiler : IOyuncuKayitTemelBilgiler
             LigAdi = dahaOnceKatildigiLig.LigAdi,
         };
         //OyuncuTemelBilgiler Object mapping
-        OyuncuTemelBilgilerTablo oyuncuTemelBilgilerTablo = new OyuncuTemelBilgilerTablo() 
+        OyuncuTemelBilgilerTablo oyuncuTemelBilgilerTablo = new OyuncuTemelBilgilerTablo()
         {
             //temel bilgiler
             Adi = oyuncuTemelBilgiler.Adi,
@@ -164,9 +174,71 @@ public class OyuncuKayitTemelBilgiler : IOyuncuKayitTemelBilgiler
             UcretTablo = ucretTablo,
             DahaOnceKatildigiLigTablo = dahaOnceKatildigiLigTablo
         };
+        Console.WriteLine("mapping işlemi bitti");
         //veritabanı kayıt işlemleri
+        Console.WriteLine("yaş kategori belirleme işlemi başladı");
+        Console.WriteLine("veritabanı kayıt işlemi başladı");
+        Console.WriteLine("sorun bulunamadı");
         OyuncuKayitDbContext oyuncuKayitDbContext = new OyuncuKayitDbContext();
         oyuncuKayitDbContext.OyuncuTemelBilgiler.Add(oyuncuTemelBilgilerTablo);
         oyuncuKayitDbContext.SaveChanges();
+        Console.WriteLine("veritabanı kayıt işlemi bitti");
     }
+
+    private List<YasKategori> yasKategorileri = new List<YasKategori>()
+    {
+        //Tek Erkekler
+        new YasKategori(){YasBaslangic =30,YasBitis = 39,Cinsiyet = "ERKEK" ,CiftTercih = false,KarisikTercih = false },
+        new YasKategori(){YasBaslangic = 40,YasBitis = 49,Cinsiyet = "ERKEK" ,CiftTercih = false,KarisikTercih = false},
+        new YasKategori(){YasBaslangic = 50,YasBitis = 59,Cinsiyet = "ERKEK",CiftTercih = false ,KarisikTercih = false },
+        new YasKategori(){YasBaslangic = 60,YasBitis = 64,Cinsiyet = "ERKEK",CiftTercih = false,KarisikTercih = false},
+        new YasKategori(){YasBaslangic = 65,YasBitis = 69,Cinsiyet = "ERKEK",CiftTercih = false,KarisikTercih = false},
+        new YasKategori(){YasBaslangic = 70,YasBitis = 74,Cinsiyet = "ERKEK",CiftTercih = false ,KarisikTercih = false},
+        new YasKategori(){YasBaslangic = 75,YasBitis = 999,Cinsiyet = "ERKEK" ,CiftTercih = false,KarisikTercih = false },
+        //Tek Kadınlar
+        new YasKategori(){YasBaslangic = 30,YasBitis = 39,Cinsiyet = "KADIN",CiftTercih = false,KarisikTercih = false},
+        new YasKategori(){YasBaslangic = 40,YasBitis = 49 ,Cinsiyet = "KADIN",CiftTercih = false,KarisikTercih = false},
+        new YasKategori(){YasBaslangic = 50,YasBitis = 59,Cinsiyet = "KADIN",CiftTercih = false,KarisikTercih =false },
+        new YasKategori(){YasBaslangic = 60,YasBitis = 999 ,Cinsiyet = "KADIN",CiftTercih = false,KarisikTercih =false },
+        //Çift Erkek
+        new YasKategori(){YasBaslangic = 30,YasBitis = 39,Cinsiyet = "ERKEK",CiftTercih = true,KarisikTercih = false},
+        new YasKategori(){YasBaslangic = 40,YasBitis = 49,Cinsiyet = "ERKEK",CiftTercih = true ,KarisikTercih = false},
+        new YasKategori(){YasBaslangic = 50,YasBitis = 59,Cinsiyet = "ERKEK",CiftTercih = true,KarisikTercih = false},
+        new YasKategori(){YasBaslangic = 60,YasBitis = 64,Cinsiyet = "ERKEK",CiftTercih = true,KarisikTercih =false },
+        new YasKategori(){YasBaslangic = 65,YasBitis = 69,Cinsiyet = "ERKEK",CiftTercih = true,KarisikTercih =false},
+        new YasKategori(){YasBaslangic = 70,YasBitis = 999,Cinsiyet = "ERKEK",CiftTercih = true,KarisikTercih =false },
+        //Çift Kadın
+        new YasKategori(){YasBaslangic = 30,YasBitis = 49,Cinsiyet = "KADIN",CiftTercih = true,KarisikTercih = false},
+        new YasKategori(){YasBaslangic = 50,YasBitis = 59,Cinsiyet = "KADIN",CiftTercih = true,KarisikTercih = false},
+        new YasKategori(){YasBaslangic = 60,YasBitis = 999,Cinsiyet = "KADIN",CiftTercih = true,KarisikTercih = false},
+
+        //Karışık
+        new YasKategori(){YasBaslangic = 30 ,YasBitis = 49,Cinsiyet = "ERKEK",CiftTercih = false,KarisikTercih = true},
+        new YasKategori(){YasBaslangic = 30,YasBitis = 49,Cinsiyet = "KADIN",CiftTercih = false,KarisikTercih = true },
+        new YasKategori(){YasBaslangic = 50,YasBitis = 999,Cinsiyet = "ERKEK",CiftTercih = false,KarisikTercih =true },
+        new YasKategori(){YasBaslangic = 50,YasBitis = 999,Cinsiyet = "KADIN",CiftTercih = false,KarisikTercih =true },
+    };
+
+    private YasKategori yasKategoriIdKodla(OyuncuTemelBilgilerTablo oyuncuTemelBilgilerTablo)
+    {
+        int oyuncuYas = yasHesapla(oyuncuTemelBilgilerTablo.DogumYili);
+        //linq sorgusuna çevirilebilir
+        foreach (YasKategori kategori in yasKategorileri)
+        {
+            if ((kategori.YasBaslangic <= oyuncuYas) && (oyuncuYas <= kategori.YasBitis ) && (kategori.Cinsiyet == oyuncuTemelBilgilerTablo.Cinsiyet) && (kategori.CiftTercih == oyuncuTemelBilgilerTablo.MacEsTablo.CiftMacTercihi) && (kategori.KarisikTercih == oyuncuTemelBilgilerTablo.MacEsTablo.KarisikMacTercihi) )
+            {
+                return kategori ;
+            }
+        }
+        return null;
+    }
+
+    private int yasHesapla(int dogumYili)
+    {
+        int guncelYil = DateTime.Now.Year;
+        return guncelYil - dogumYili;
+    }
+
+
 }
+
