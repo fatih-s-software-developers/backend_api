@@ -24,7 +24,7 @@ public class OyuncuKayitTemelBilgilerManager : IOyuncuKayitTemelBilgilerManager
         YasKategori yasKategori = YasKategoriIdKodla(temelKayitEkleRequest);
         if (yasKategori != null)
         {
-            Console.WriteLine("kullanıcının tercihine uygun kategori bulundu");
+            Console.WriteLine($"kullanıcının({temelKayitEkleRequest.OyuncuTemelBilgiler.Adi} {temelKayitEkleRequest.OyuncuTemelBilgiler.Soyadi}) tercihine uygun kategori bulundu");
             //kategori bulundu
             temelKayitEkleRequest.OyuncuTemelBilgiler.YasKategoriId = yasKategori.YasKategoriIdOlustur();
         }
@@ -32,10 +32,11 @@ public class OyuncuKayitTemelBilgilerManager : IOyuncuKayitTemelBilgilerManager
         {
             //kategori bulunamadı
             //burada hata da fırlatabilir iz ama şuanlık temelKayitEkleRequest.OyuncuTemelBilgiler.YasKategoriId değerine "0000000000" değerini atıyoruz
-            Console.WriteLine("geliştiriciye not :kullanıcının tercihine uygun kategori bulunamadı bu yüzden temelKayitEkleRequest.OyuncuTemelBilgiler.YasKategoriId değeri 0000000000 olarak ayarlandı ");
+            Console.WriteLine($"geliştiriciye not :kullanıcının({temelKayitEkleRequest.OyuncuTemelBilgiler.Adi} {temelKayitEkleRequest.OyuncuTemelBilgiler.Soyadi}) tercihine uygun kategori bulunamadı bu yüzden temelKayitEkleRequest.OyuncuTemelBilgiler.YasKategoriId değeri 0000000000 olarak ayarlandı ");
             temelKayitEkleRequest.OyuncuTemelBilgiler.YasKategoriId = "0000000000";
         }
         //temel kayıt ekleme
+        Console.WriteLine($" {temelKayitEkleRequest.OyuncuTemelBilgiler.Adi} {temelKayitEkleRequest.OyuncuTemelBilgiler.Soyadi} adlı kişinin kaydı business katmanına geldi \ndataacess katmanına transferi başlatılıyor");
         IOyuncuKayitTemelBilgiler.temelkayitekle(temelKayitEkleRequest.OyuncuTemelBilgiler,temelKayitEkleRequest.MacEs,temelKayitEkleRequest.Ucret,temelKayitEkleRequest.DahaOnceKatildigiLig);
     }
     //YENİ KATEGORİ EKLEMEK İÇİN BURAYI (yasKategorileri listesi) DEĞİŞTİRİN
@@ -90,6 +91,16 @@ public class OyuncuKayitTemelBilgilerManager : IOyuncuKayitTemelBilgilerManager
     {
         int guncelYil = DateTime.Now.Year;
         return guncelYil - dogumYili;
+    }
+
+    public void TopluTemelKayitEkle(List<TemelKayitEkleRequest> kayitlar)
+    {
+        Console.WriteLine("toplu kayıt ekleme fonksiyonu çalıştırıldı");
+		Console.WriteLine("güvenlik sebebi ile veritabanı kaydı kapatıldı");
+		foreach (TemelKayitEkleRequest kayit in kayitlar)
+        {
+            this.temelkayitekle(kayit);
+        }
     }
 
 }

@@ -167,8 +167,13 @@ namespace backend_api.Properties
             int guncelYil = DateTime.Now.Year;
             return guncelYil - dogumYili;
         }
+        [HttpPost("TopluKayitTest")]
+		public IActionResult TopluTest(List<TemelKayitEkleRequest> kayitlar)
+        {
+            return Ok();
+        }
 
-    }
+	}
 
 
 
