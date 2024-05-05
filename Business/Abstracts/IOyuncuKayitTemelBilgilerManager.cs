@@ -6,5 +6,5 @@ namespace backend_api.Business.Abstracts;
 public interface IOyuncuKayitTemelBilgilerManager
 {
     void temelkayitekle(TemelKayitEkleRequest temelKayitEkleRequest);
-
+	void TopluTemelKayitEkle(List<TemelKayitEkleRequest> kayitlar);
 }

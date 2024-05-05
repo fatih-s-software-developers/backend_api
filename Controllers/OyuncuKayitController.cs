@@ -23,6 +23,13 @@ namespace backend_api.Controllers
             return Ok();
         }
 
+        [HttpPost("TopluKayitEkle")]
+        public IActionResult TopluOyuncuKayitEkle(List<TemelKayitEkleRequest> kayitlar)
+        {
+            _oyuncuKayitTemelBilgilerManager.TopluTemelKayitEkle(kayitlar);
+            return Ok();
+        }
+
 
 
     }

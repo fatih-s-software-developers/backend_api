@@ -12,7 +12,7 @@ using backend_api.DataAccess.Concretes;
 namespace backend_api.Migrations
 {
     [DbContext(typeof(OyuncuKayitDbContext))]
-    [Migration("20240504172837_OyuncuKayitDb")]
+    [Migration("20240505185051_OyuncuKayitDb")]
     partial class OyuncuKayitDb
     {
         /// <inheritdoc />
@@ -123,6 +123,9 @@ namespace backend_api.Migrations
 
                     b.Property<int>("Oyuncu_Unic_Id")
                         .HasColumnType("integer");
+
+                    b.Property<double>("Puan")
+                        .HasColumnType("double precision");
 
                     b.Property<string>("Soyadi")
                         .IsRequired()

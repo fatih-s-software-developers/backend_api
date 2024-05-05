@@ -121,6 +121,9 @@ namespace backend_api.Migrations
                     b.Property<int>("Oyuncu_Unic_Id")
                         .HasColumnType("integer");
 
+                    b.Property<double>("Puan")
+                        .HasColumnType("double precision");
+
                     b.Property<string>("Soyadi")
                         .IsRequired()
                         .HasColumnType("text");

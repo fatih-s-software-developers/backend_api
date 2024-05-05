@@ -1,12 +1,22 @@
 ﻿using backend_api.Business.Dto.Requests;
 using backend_api.DataAccess.Abstracts;
 using backend_api.Entities;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Reflection;
 
 namespace backend_api.DataAccess.Concretes;
 
+/*
+ * yapılacaklar
+tabloya puan alanının eklenmesi
+(hocanın verdiği excel dosyası kullanarak) toplu kayıt sistemi yazılması
+(bu kısım 2(windows form app sistemi ,backend api sistemi) + 1(eksik tablo alanlarının oluşturulması(ör:puan) ayaklı)
 
+şablonlu excel dosyası kullanarak toplu kayıt sistemi yazılması(bu daha sonra yazılacak)
+
+ */
 
 //Database Model Class
 public class OyuncuTemelBilgilerTablo
@@ -28,14 +38,15 @@ public class OyuncuTemelBilgilerTablo
 
     public int DogumYili { get; set; }
 
+	
+
+	//yaşına göre kategoriye yerleştirme
+	public string YasKategoriId { get; set; }
+	//puan 
+	public double Puan { get; set; }
 
 
-
-    //yaşına göre kategoriye yerleştirme
-    public string YasKategoriId { get; set; }
-
-
-    public string BedenOlcusu { get; set; }
+	public string BedenOlcusu { get; set; }
 
     public int OyunSeviye { get; set; }
 
@@ -130,6 +141,7 @@ public class OyuncuKayitTemelBilgiler : IOyuncuKayitTemelBilgiler
 
     public void temelkayitekle(OyuncuTemelBilgilerTemelKayitEkleRequest oyuncuTemelBilgiler, MacEsTemelKayitEkleRequest macEs, UcretTemelKayitEkleRequest ucret, DahaOnceKatildigiLigUcretTemelKayitEkleRequest dahaOnceKatildigiLig)
     {
+        Console.WriteLine($"{oyuncuTemelBilgiler.Adi} {oyuncuTemelBilgiler.Soyadi} adlı kişinin kaydı dataacess katmanıa geldi işlemler başlatılıyor");
         //mapping işlemleri
         //MacEs object mapping
         Console.WriteLine("mapping işlemi başladı");
@@ -166,6 +178,7 @@ public class OyuncuKayitTemelBilgiler : IOyuncuKayitTemelBilgiler
             EpostaAdresi = oyuncuTemelBilgiler.EpostaAdresi,
             Cinsiyet = oyuncuTemelBilgiler.Cinsiyet,
             DogumYili = oyuncuTemelBilgiler.DogumYili,
+            Puan = oyuncuTemelBilgiler.Puan,
             YasKategoriId = oyuncuTemelBilgiler.YasKategoriId,
             BedenOlcusu = oyuncuTemelBilgiler.BedenOlcusu,
             OyunSeviye = oyuncuTemelBilgiler.OyunSeviye,
@@ -177,12 +190,42 @@ public class OyuncuKayitTemelBilgiler : IOyuncuKayitTemelBilgiler
         };
         Console.WriteLine("mapping işlemi bitti");
         //veritabanı kayıt işlemleri
-        Console.WriteLine("veritabanı kayıt işlemi başladı");
+        Console.WriteLine($"{oyuncuTemelBilgiler.Adi} {oyuncuTemelBilgiler.Soyadi} adlı kişinin veritabanı kayıt işlemi başladı");
         Console.WriteLine("sorun bulunamadı");
         OyuncuKayitDbContext oyuncuKayitDbContext = new OyuncuKayitDbContext();
-        oyuncuKayitDbContext.OyuncuTemelBilgiler.Add(oyuncuTemelBilgilerTablo);
-        oyuncuKayitDbContext.SaveChanges();
-        Console.WriteLine("veritabanı kayıt işlemi bitti");
+        //Console.WriteLine("güvenlik sebebi ile veritabanı kaydı kapatıldı");
+        kayitBas(oyuncuTemelBilgiler, macEs, ucret, dahaOnceKatildigiLig);
+
+        //oyuncuKayitDbContext.OyuncuTemelBilgiler.Add(oyuncuTemelBilgilerTablo);
+        //oyuncuKayitDbContext.SaveChanges();
+        Console.WriteLine($"{oyuncuTemelBilgiler.Adi} {oyuncuTemelBilgiler.Soyadi} adlı kişinin veritabanı kayıt işlemi bitti");
     }
+
+    private void kayitBas(OyuncuTemelBilgilerTemelKayitEkleRequest oyuncuTemelBilgiler, MacEsTemelKayitEkleRequest macEs, UcretTemelKayitEkleRequest ucret, DahaOnceKatildigiLigUcretTemelKayitEkleRequest dahaOnceKatildigiLig)
+    {
+		Console.WriteLine("==============================================Yeni Kayıt============================");
+		Console.WriteLine("oyuncuTemelBilgiler");
+		classOzellikBas(oyuncuTemelBilgiler);
+		Console.WriteLine("macEs");
+		classOzellikBas(macEs);
+		Console.WriteLine("Ücret");
+		classOzellikBas(ucret);
+		Console.WriteLine("dahaOnceKatildigiLig");
+		classOzellikBas(dahaOnceKatildigiLig);
+		Console.WriteLine("====================================================================================");
+	}
+
+    private void classOzellikBas(object obj)
+    {
+		Type type = obj.GetType();
+		FieldInfo[] fields = type.GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+
+		foreach (FieldInfo field in fields)
+		{
+			object value = field.GetValue(obj);
+			Console.WriteLine($"{field.Name}: {value}");
+		}
+
+	}
 }
 

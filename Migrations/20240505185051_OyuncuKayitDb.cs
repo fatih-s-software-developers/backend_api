@@ -27,6 +27,7 @@ namespace backend_api.Migrations
                     Cinsiyet = table.Column<string>(type: "text", nullable: false),
                     DogumYili = table.Column<int>(type: "integer", nullable: false),
                     YasKategoriId = table.Column<string>(type: "text", nullable: false),
+                    Puan = table.Column<double>(type: "double precision", nullable: false),
                     BedenOlcusu = table.Column<string>(type: "text", nullable: false),
                     OyunSeviye = table.Column<int>(type: "integer", nullable: false),
                     DahaOnceKatildiMi = table.Column<bool>(type: "boolean", nullable: false),
