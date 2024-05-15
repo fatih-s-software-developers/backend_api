@@ -73,7 +73,7 @@ public class OyuncuKayitTemelBilgilerManager : IOyuncuKayitTemelBilgilerManager
 		new YasKategori(){YasBaslangic = 50,YasBitis = 999,Cinsiyet = "ERKEK",CiftTercih = false,KarisikTercih =true },
 		new YasKategori(){YasBaslangic = 50,YasBitis = 999,Cinsiyet = "KADIN",CiftTercih = false,KarisikTercih =true },
 	};
-	public YasKategori? YasKategoriIdKodla(TemelKayitEkleRequest temelKayitEkleRequest)
+	private YasKategori? YasKategoriIdKodla(TemelKayitEkleRequest temelKayitEkleRequest)
 	{
 		YasKategori resultYasKategori = new YasKategori();
 		//continue from here
