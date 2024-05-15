@@ -73,35 +73,37 @@ public class OyuncuKayitTemelBilgilerManager : IOyuncuKayitTemelBilgilerManager
 		new YasKategori(){YasBaslangic = 50,YasBitis = 999,Cinsiyet = "ERKEK",CiftTercih = false,KarisikTercih =true },
 		new YasKategori(){YasBaslangic = 50,YasBitis = 999,Cinsiyet = "KADIN",CiftTercih = false,KarisikTercih =true },
 	};
-	public YasKategori? YasKategoriIdKodla(TemelKayitEkleRequest temelKayitEkleRequest, int deger = 0)
+	private YasKategori? YasKategoriIdKodla(TemelKayitEkleRequest temelKayitEkleRequest)
 	{
 		YasKategori resultYasKategori = new YasKategori();
 		//continue from here
 		int oyuncuYas = yasHesapla(temelKayitEkleRequest.OyuncuTemelBilgiler.DogumYili);
 		//linq sorgusuna çevirilebilir
 		//şuan aklıma şöyle bir çözüm geldi kategorideki  değerlere uyan kategorileri bir listeye ekle
-		List<YasKategori> sartaUyanlar = new List<YasKategori>();
+		List<int> yasBaslangicDegerleri = new List<int>();
+		List<int> yasBitisDegerleri = new List<int>();
 		foreach (YasKategori kategori in yasKategorileri)
 		{
 
 			//&& (kategori.CiftTercih == temelKayitEkleRequest.MacEs.CiftMacTercihi) && (kategori.KarisikTercih == temelKayitEkleRequest.MacEs.KarisikMacTercihi)
-
-			if ((kategori.YasBaslangic <= oyuncuYas) && (oyuncuYas <= kategori.YasBitis) && (kategori.Cinsiyet == temelKayitEkleRequest.OyuncuTemelBilgiler.Cinsiyet) && ((kategori.CiftTercih == temelKayitEkleRequest.MacEs.CiftMacTercihi) || (kategori.KarisikTercih == temelKayitEkleRequest.MacEs.KarisikMacTercihi)))
+			//&& ((kategori.CiftTercih == temelKayitEkleRequest.MacEs.CiftMacTercihi) || (kategori.KarisikTercih == temelKayitEkleRequest.MacEs.KarisikMacTercihi))
+			if ((kategori.YasBaslangic <= oyuncuYas) && (oyuncuYas <= kategori.YasBitis) && (kategori.Cinsiyet == temelKayitEkleRequest.OyuncuTemelBilgiler.Cinsiyet))
 			{
-				sartaUyanlar.Add(kategori);
+				yasBaslangicDegerleri.Add(kategori.YasBaslangic);
+				yasBitisDegerleri.Add(kategori.YasBitis);
 			}
 		}
 		//yukarıdaki satırda yapılan iş şu:yarışmacının bilgilerine göre hangi kategorilere girebileceğini buluyoruz.daha sonra buradaki kategorileri bir listeye ekliyoruz
 		// listeye eklememizdek  amaç yaş değerlerinin başlangıç ve bitiş değerini belirlemek
-		if (sartaUyanlar.Count > 0)
+		if (yasBaslangicDegerleri.Count > 0 || yasBitisDegerleri.Count > 0 )
 		{
-			Console.WriteLine($"============================================={deger}========================================================");
+			Console.WriteLine($"=====================================================================================================");
 			Console.WriteLine("şarta uyan değer bulundu");
-			Console.WriteLine($"{sartaUyanlar.Count} tane şarta uyan kategori var");
-
+			Console.WriteLine($"{yasBaslangicDegerleri.Count} tane şarta uyan kategori var");
 
 		}
 		/*
+		 * ÇÖZÜLDÜ
 		 * KATEGORİDEKİ Yaş Değerlerinin uyuşmaması
 		 * şimdi elimizde şarta uyan kategoriler var
 		   bu kategorileri konsola bastırdığımızda şöyle bir sıkıntı farkettim
@@ -117,21 +119,18 @@ public class OyuncuKayitTemelBilgilerManager : IOyuncuKayitTemelBilgilerManager
 	       * burada ne yapmam gerekiyor?
 	       (aklıma gelen çözüm 
 			bir kategorinin yaş değerlerini kullanmak 
-			ama öyle olduğu zaman ileride kategorilere göre gruplandırıken sıkıntı yaşayacağız)
+			ama öyle olduğu zaman ileride kategorilere göre gruplandırıken sıkıntı yaşayacağız)(küçük değerleri al hoca öyle dedi)
 		 */
-		List<int> yasBaslangicDegerleri = new List<int>();
-		List<int> yasBitisDegerleri = new List<int>();
-
-		foreach (YasKategori sartauyan in sartaUyanlar)
-		{
-			//karşılaştırma
-			Console.WriteLine($"yaş başlangıç {sartauyan.YasBaslangic} | yaş bitiş {sartauyan.YasBitis} | cinsiyet {sartauyan.Cinsiyet} | Çift Maç {sartauyan.CiftTercih} | Karışık Maç {sartauyan.KarisikTercih}");
-			yasBaslangicDegerleri.Add(sartauyan.YasBaslangic);
-			yasBitisDegerleri.Add(sartauyan.YasBitis);
-		}
-        Console.WriteLine($"yaş başlangıç değeri {yasBaslangicDegerleri.Min()} | yaş bitiş değeri {yasBitisDegerleri.Min()} olarak belirlendi");
-        Console.WriteLine("=====================================================================================================");
-
+		resultYasKategori.YasBaslangic = yasBaslangicDegerleri.Min();
+		resultYasKategori.YasBitis = yasBitisDegerleri.Min();
+		//Console.WriteLine($"yaş başlangıç değeri {resultYasKategori.YasBaslangic} | yaş bitiş değeri {resultYasKategori.YasBitis} olarak belirlendi");
+		resultYasKategori.Cinsiyet = temelKayitEkleRequest.OyuncuTemelBilgiler.Cinsiyet;
+		//Console.WriteLine($"Cinsiyet {resultYasKategori.Cinsiyet} olarak belirlendi");
+		
+		resultYasKategori.CiftTercih = temelKayitEkleRequest.MacEs.CiftMacTercihi;
+		resultYasKategori.KarisikTercih = temelKayitEkleRequest.MacEs.KarisikMacTercihi;
+		Console.WriteLine($"Çift Maç tercihi {resultYasKategori.CiftTercih} | Karışık Maç Tercihi {resultYasKategori.KarisikTercih}  olarak belirlendi");
+		Console.WriteLine("=====================================================================================================");
 		return resultYasKategori;
 	}
 

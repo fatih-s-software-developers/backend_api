@@ -192,13 +192,12 @@ public class OyuncuKayitTemelBilgiler : IOyuncuKayitTemelBilgiler
         Console.WriteLine("mapping işlemi bitti");
         //veritabanı kayıt işlemleri
         //geçiçi sonra sil
-        Thread.Sleep(250);
+        //Thread.Sleep(250);
         Console.WriteLine($"{oyuncuTemelBilgiler.Adi} {oyuncuTemelBilgiler.Soyadi} adlı kişinin veritabanı kayıt işlemi başladı");
         Console.WriteLine("sorun bulunamadı");
         OyuncuKayitDbContext oyuncuKayitDbContext = new OyuncuKayitDbContext();
         //Console.WriteLine("güvenlik sebebi ile veritabanı kaydı kapatıldı");
         kayitBas(oyuncuTemelBilgiler, macEs, ucret, dahaOnceKatildigiLig);
-
         //oyuncuKayitDbContext.OyuncuTemelBilgiler.Add(oyuncuTemelBilgilerTablo);
         //oyuncuKayitDbContext.SaveChanges();
         Console.WriteLine($"{oyuncuTemelBilgiler.Adi} {oyuncuTemelBilgiler.Soyadi} adlı kişinin veritabanı kayıt işlemi bitti");
