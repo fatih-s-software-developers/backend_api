@@ -182,27 +182,29 @@ namespace backend_api.Properties
         public IActionResult KategoriTest(int dogumYili,string Cinsiyet,bool ciftTercih,bool karisikTercih)
         {
 
-			TemelKayitEkleRequest kayit = new TemelKayitEkleRequest()
-			{
-				OyuncuTemelBilgiler = new OyuncuTemelBilgilerTemelKayitEkleRequest()
-				{
-					DogumYili = 0,
-					Cinsiyet = Cinsiyet,
-				},
-				MacEs = new MacEsTemelKayitEkleRequest()
-				{
-					CiftMacTercihi = ciftTercih,
-					KarisikMacTercihi = karisikTercih,
-				}
+			//TemelKayitEkleRequest kayit = new TemelKayitEkleRequest()
+			//{
+			//	OyuncuTemelBilgiler = new OyuncuTemelBilgilerTemelKayitEkleRequest()
+			//	{
+			//		DogumYili = dogumYili,
+			//		Cinsiyet = Cinsiyet,
+			//	},
+			//	MacEs = new MacEsTemelKayitEkleRequest()
+			//	{
+			//		CiftMacTercihi = ciftTercih,
+			//		KarisikMacTercihi = karisikTercih,
+			//	}
 
-			};
-			//başlangıç 1026(999 yaşına kadar) 1993(30 yaşına kadar) bu yaş aralığını vererek bir test edelim
+			//};
+   //         ////başlangıç 1026(999 yaşına kadar) 1993(30 yaşına kadar) bu yaş aralığını vererek bir test edelim
 
-			for (int i = 1026; i < 1993; i++)
-            {
-                kayit.OyuncuTemelBilgiler.DogumYili = i;
-				_oyuncuKayitTemelBilgilerManager.YasKategoriIdKodla(kayit,i);
-			}
+   //         //for (int i = 1026; i < 1993; i++)
+   //         //{
+   //         //    kayit.OyuncuTemelBilgiler.DogumYili = i;
+   //         //    _oyuncuKayitTemelBilgilerManager.YasKategoriIdKodla(kayit, i);
+   //         //}
+   //         YasKategori yasKategori =  _oyuncuKayitTemelBilgilerManager.YasKategoriIdKodla(kayit);
+   //         Console.WriteLine(yasKategori.YasKategoriIdOlustur());
             return Ok();
         }
 

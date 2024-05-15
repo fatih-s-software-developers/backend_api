@@ -16,11 +16,12 @@ public class YasKategori
 
     public string YasKategoriIdOlustur()
     {
+        Console.WriteLine("id verme kısmına gelindi");
 
         //yasBaslangicHanesi
 
         string yasBaslangicHanesi = yasHaneOlustur(YasBaslangic);
-
+        Console.WriteLine("yaş başlangıç değeri verildi");
         //string yasBaslangicHanesi = "";
         //int yasBaslangicHanesiUzunluk = YasBaslangic.ToString().Length;
         ////yaş 1 karekterli ise başına 00 konur
@@ -39,10 +40,9 @@ public class YasKategori
         //tercihHaneleri
         //tek erkek
         string tekErkekTercihHanesi =  "00";
-		//TODO hocaya sor : tek {cinsiyet} otomatik olarak seçilecek mi?
-		//ternary operatöre çevirilebilir
-
-		if ((Cinsiyet == "ERKEK"))
+        //TODO hocaya sor : tek {cinsiyet} otomatik olarak seçilecek mi?
+        //ternary operatöre çevirilebilir
+        if ((Cinsiyet == "ERKEK"))
         {
             tekErkekTercihHanesi = "MS";
         }
