@@ -10,10 +10,11 @@ namespace backend_api.DataAccess.Concretes;
 
 /*
  * yapılacaklar
-tabloya puan alanının eklenmesi
-(hocanın verdiği excel dosyası kullanarak) toplu kayıt sistemi yazılması
-(bu kısım 2(windows form app sistemi ,backend api sistemi) + 1(eksik tablo alanlarının oluşturulması(ör:puan) ayaklı)
+tabloya puan alanının eklenmesi (yapıldı)
+(hocanın verdiği excel dosyası kullanarak) toplu kayıt sistemi yazılması(yapıldı)
+(bu kısım 2(windows form app sistemi ,backend api sistemi) + 1(eksik tablo alanlarının oluşturulması(ör:puan) ayaklı)(yapıldı)
 
+yaş kategori sisteminin tekrar kodlanması
 şablonlu excel dosyası kullanarak toplu kayıt sistemi yazılması(bu daha sonra yazılacak)
 
  */
@@ -190,6 +191,8 @@ public class OyuncuKayitTemelBilgiler : IOyuncuKayitTemelBilgiler
         };
         Console.WriteLine("mapping işlemi bitti");
         //veritabanı kayıt işlemleri
+        //geçiçi sonra sil
+        Thread.Sleep(250);
         Console.WriteLine($"{oyuncuTemelBilgiler.Adi} {oyuncuTemelBilgiler.Soyadi} adlı kişinin veritabanı kayıt işlemi başladı");
         Console.WriteLine("sorun bulunamadı");
         OyuncuKayitDbContext oyuncuKayitDbContext = new OyuncuKayitDbContext();

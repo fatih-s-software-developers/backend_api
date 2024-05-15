@@ -1,4 +1,5 @@
 ﻿using backend_api.Business.Abstracts;
+using backend_api.Business.Concretes;
 using backend_api.Business.Dto.Requests;
 using backend_api.DataAccess.Concretes;
 using backend_api.Entities;
@@ -14,13 +15,17 @@ namespace backend_api.Properties
     {
 
         private readonly IStudentManager _studentManager;
+		private readonly IOyuncuKayitTemelBilgilerManager _oyuncuKayitTemelBilgilerManager;
 
-        public ValuesController(IStudentManager studentManager, IOyuncuKayitTemelBilgilerManager oyuncuKayitTemelBilgilerManager)
+		public ValuesController(IStudentManager studentManager, IOyuncuKayitTemelBilgilerManager oyuncuKayitTemelBilgilerManager)
         {
             _studentManager = studentManager;
-        }
+			_oyuncuKayitTemelBilgilerManager = oyuncuKayitTemelBilgilerManager;
 
-        string dataone = "Veri";
+
+		}
+
+		string dataone = "Veri";
 
         string[] datatwo = new string[] {
             "data1",
@@ -173,8 +178,43 @@ namespace backend_api.Properties
             return Ok();
         }
 
-	}
+        [HttpPost("KategoriTest")]
+        public IActionResult KategoriTest(int dogumYili,string Cinsiyet,bool ciftTercih,bool karisikTercih)
+        {
 
+			TemelKayitEkleRequest kayit = new TemelKayitEkleRequest()
+			{
+				OyuncuTemelBilgiler = new OyuncuTemelBilgilerTemelKayitEkleRequest()
+				{
+					DogumYili = 0,
+					Cinsiyet = Cinsiyet,
+				},
+				MacEs = new MacEsTemelKayitEkleRequest()
+				{
+					CiftMacTercihi = ciftTercih,
+					KarisikMacTercihi = karisikTercih,
+				}
+
+			};
+			//başlangıç 1026(999 yaşına kadar) 1993(30 yaşına kadar) bu yaş aralığını vererek bir test edelim
+
+			for (int i = 1026; i < 1993; i++)
+            {
+                kayit.OyuncuTemelBilgiler.DogumYili = i;
+				_oyuncuKayitTemelBilgilerManager.YasKategoriIdKodla(kayit,i);
+			}
+            return Ok();
+        }
+
+
+        [HttpGet("konsolTemizle")]
+        public IActionResult temizle()
+        {
+            Console.Clear();
+            return Ok();
+        }
+
+	}
 
 
 }

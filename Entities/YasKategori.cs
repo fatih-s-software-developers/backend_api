@@ -2,7 +2,8 @@
 
 public class YasKategori
 {
-    public int YasBaslangic { get; set; }
+
+	public int YasBaslangic { get; set; }
 
     public int YasBitis { get; set; }
 
@@ -35,72 +36,62 @@ public class YasKategori
         //}
         ////yaş 3 karekterli ise başına birşey konmaz
 
-        //tercihHanesi
+        //tercihHaneleri
+        //tek erkek
+        string tekErkekTercihHanesi =  "00";
+		//TODO hocaya sor : tek {cinsiyet} otomatik olarak seçilecek mi?
+		//ternary operatöre çevirilebilir
 
-        /*
-         01=>tek,
-         02=> çift
-         03 => karışık
-         */
-        string tercihHanesi = "";
-        // karışık,çift,tek maç hanesi belirleme
-        if (CiftTercih || KarisikTercih)
+		if ((Cinsiyet == "ERKEK"))
         {
-            //burada kullanıcı bize hem çift hem karışık tercih ederek gelebilir bu ihtimali daha sonra düşün
-            //karışık veya çift maç seçilmiş
-            if (CiftTercih)
-            {
-                //çift seçilmiş
-                tercihHanesi = "02";
-            }
-            else if (KarisikTercih)
-            {
-                //karışık seçilmiş
-                tercihHanesi = "03";
-            }
-        }
-        else
-        {
-            //karışık veya çift maç seçilmemiş (tek maç seçilmiş)
-            tercihHanesi = "01";
+            tekErkekTercihHanesi = "MS";
         }
 
-        //cinsiyetHanesi
-        /*
-         01=> erkek
-         02 => kadın
-         */
-        string cinsiyetHanesi = "";
-        //cinsiyet hanesi belirleme
-        if (Cinsiyet == "ERKEK")
+		//tek kadın
+		string tekKadinTercihHanesi =  "00";
+        //ternary operatöre çevirilebilir
+		if ((Cinsiyet == "KADIN"))
+		{
+			tekKadinTercihHanesi = "WS";
+		}
+        //daha düzgün bir kod yazılabilir(ör:cifttercih true ise ikinci karakterin "D" yapılması)
+		//çift erkek
+		string ciftErkekTercihHanesi = "00";
+        if ((Cinsiyet == "ERKEK") && (CiftTercih))
         {
-            //cinsiyet erkek
-            cinsiyetHanesi = "01";
+            ciftErkekTercihHanesi = "MD";
         }
-        else if (Cinsiyet == "KADIN")
+		//çift kadın
+		string ciftKadinTercihHanesi = "00";
+        if ((Cinsiyet == "KADIN") && (CiftTercih))
         {
-            //cinsiyet kadın
-            cinsiyetHanesi = "02";
+            ciftKadinTercihHanesi = "WD";
         }
+		//karışık
+		string KarisikTercihHanesi = "00";
 
+        if (KarisikTercih)
+        {
+			KarisikTercihHanesi = "XD";
+        }
 
         // yasBitisHanesi
         string yasBitisHanesi = yasHaneOlustur(YasBitis);
-        //string yasBitisHanesi = "";
-        //int yasBitisHanesiUzunluk = YasBitis.ToString().Length;
-        ////yaş 1 karekterli ise başına 00 konur
-        //if (yasBitisHanesiUzunluk == 1)
-        //{
-        //    yasBitisHanesi = $"00{YasBitis}";
-        //}
+		//string yasBitisHanesi = "";
+		//int yasBitisHanesiUzunluk = YasBitis.ToString().Length;
+		////yaş 1 karekterli ise başına 00 konur
+		//if (yasBitisHanesiUzunluk == 1)
+		//{
+		//    yasBitisHanesi = $"00{YasBitis}";
+		//}
 
-        ////yaş 2 karekterli ise başına 0 konur
-        //else if (yasBitisHanesiUzunluk == 2)
-        //{
-        //    yasBitisHanesi = $"0{YasBitis}";
-        //}
-        ////yaş 3 karekterli ise başına birşey konmaz
-        return $"{yasBaslangicHanesi}{tercihHanesi}{cinsiyetHanesi}{yasBitisHanesi}";
+		////yaş 2 karekterli ise başına 0 konur
+		//else if (yasBitisHanesiUzunluk == 2)
+		//{
+		//    yasBitisHanesi = $"0{YasBitis}";
+		//}
+		////yaş 3 karekterli ise başına birşey konmaz
+		return $"{yasBaslangicHanesi} {tekErkekTercihHanesi} {tekKadinTercihHanesi} {ciftErkekTercihHanesi} {ciftKadinTercihHanesi} {KarisikTercihHanesi} {yasBitisHanesi}";
     }
 
     private string yasHaneOlustur(int yas){
