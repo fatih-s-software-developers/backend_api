@@ -7,4 +7,5 @@ public interface IOyuncuKayitTemelBilgilerManager
 {
     void temelkayitekle(TemelKayitEkleRequest temelKayitEkleRequest);
 	void TopluTemelKayitEkle(List<TemelKayitEkleRequest> kayitlar);
+	YasKategori? YasKategoriIdKodla(TemelKayitEkleRequest temelKayitEkleRequest,int deger = 0);
 }
